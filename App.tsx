@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { PaperProvider } from 'react-native-paper';
+import Landing from './src/Landing';
+import { AppStateContext, TodoContext } from './src/contexts';
+import createAppStateContext from './src/contexts/createAppStateContext';
+import createTodoListContext from './src/contexts/createTodoListContext';
 
 export default function App() {
+  const todoManager = createTodoListContext();
+  const appState = createAppStateContext();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider>
+      <TodoContext.Provider value={todoManager}>
+        <AppStateContext.Provider value={appState}>
+          <Landing />
+          <StatusBar style='auto' />
+        </AppStateContext.Provider>
+      </TodoContext.Provider>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
