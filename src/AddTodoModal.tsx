@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { Modal, ModalProps, StyleSheet, Text, SafeAreaView, View, TouchableWithoutFeedback, TextInput, KeyboardAvoidingView } from 'react-native';
-import useAppState from './hooks/useAppState';
-import Animated, { Easing, useSharedValue, withTiming } from 'react-native-reanimated';
-import { Button } from 'react-native-paper';
-import useTodoList from './hooks/useTodoList';
 import _ from 'lodash';
+import React, { useEffect, useRef } from 'react';
+import { KeyboardAvoidingView, Modal, ModalProps, SafeAreaView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Button } from 'react-native-paper';
+import Animated, { Easing, useSharedValue, withTiming } from 'react-native-reanimated';
+import useAppState from './hooks/useAppState';
+import useTodoList from './hooks/useTodoList';
 
 interface Props extends Omit<ModalProps, 'children'> {}
 
@@ -36,6 +36,7 @@ const AddTodoModal = (props: Props) => {
       dateAdded: new Date(),
       detail: input.current,
       done: false,
+      id: _.uniqueId('todo_'),
     });
     onClose();
   }
@@ -52,9 +53,12 @@ const AddTodoModal = (props: Props) => {
                   onChangeText={(text) => (input.current = text)}
                   style={{ borderWidth: 1, borderColor: '#d3d3d3', borderRadius: 5, minHeight: 100, marginVertical: 15, padding: 5 }}
                   multiline
+                  onTouchStart={(event) => {
+                    event.stopPropagation();
+                  }}
                 ></TextInput>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Button mode='outlined' textColor='black' style={{ flex: 1 }}>
+                  <Button mode='outlined' textColor='black' style={{ flex: 1 }} onPress={onClose}>
                     Cancel
                   </Button>
                   <View style={{ width: 50 }} />

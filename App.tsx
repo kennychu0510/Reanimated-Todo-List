@@ -13,8 +13,8 @@ export default function App() {
     <PaperProvider>
       <TodoContext.Provider value={todoManager}>
         <AppStateContext.Provider value={appState}>
-          <Landing />
-          <StatusBar style='auto' />
+            <Landing />
+            <StatusBar style='auto' />
         </AppStateContext.Provider>
       </TodoContext.Provider>
     </PaperProvider>

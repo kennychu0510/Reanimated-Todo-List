@@ -12,7 +12,7 @@ const LetterTimingConfig = { duration: DURATION }
 const LineTimingConfig = { duration: DURATION, easing: Easing.in(Easing.bezierFn(0.25, 0.1, 0.25, 1)) }
 
 const Header = () => {
-  const titleFullWidth = useRef(0);
+  const titleFullWidth = useRef(200);
   const opacity1 = useSharedValue(0);
   const opacity2 = useSharedValue(0);
 
@@ -22,7 +22,7 @@ const Header = () => {
     opacity1.value = withDelay(0 * DELAY.HEADER, withTiming(1, LetterTimingConfig));
     opacity2.value = withDelay(1 * DELAY.HEADER, withTiming(1, LetterTimingConfig));
     lineWidth.value = withDelay(1.5 * DELAY.HEADER, withTiming(titleFullWidth.current, LineTimingConfig));
-  }, [titleFullWidth.current]);
+  }, []);
 
   function reloadAnim() {
     opacity1.value = 0;
@@ -38,9 +38,6 @@ const Header = () => {
       <View style={styles.header}>
         <View
           style={{ flexDirection: 'row' }}
-          onLayout={(e) => {
-            titleFullWidth.current = e.nativeEvent.layout.width;
-          }}
         >
           <Animated.Text style={{ ...styles.label, opacity: opacity1 }}>{text[0]}</Animated.Text>
           <Animated.Text style={{ ...styles.label, opacity: opacity2 }}>{text[1]}</Animated.Text>

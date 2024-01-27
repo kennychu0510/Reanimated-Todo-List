@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import { DELAY } from './constants';
